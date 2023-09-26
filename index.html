@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D20 Roller</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #dice-container {
+        text-align: center;
+        position: relative;
+        font-family: "Poppins", sans-serif;
+      }
+
+      #dice-wrapper {
+        position: relative;
+      }
+
+      #dice {
+        width: 150px;
+        height: 150px;
+        cursor: pointer;
+        position: relative;
+        transition: transform 2s ease;
+      }
+
+      #dice-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 26px;
+        color: black;
+        font-weight: bold;
+        font-family: "Poppins", sans-serif;
+      }
+
+      #dice-message {
+        margin-top: 20px;
+        font-size: 18px;
+        color: black;
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dice-container">
+      <div id="dice-wrapper">
+        <img id="dice" src="dice.jpg" alt="D20" />
+        <div id="dice-number"></div>
+      </div>
+      <p id="dice-message"></p>
+    </div>
+
+    <script>
+      var isRolling = false;
+
+      document
+        .getElementById("dice-container")
+        .addEventListener("click", function () {
+          if (!isRolling) {
+            isRolling = true;
+
+            var diceImage = document.getElementById("dice");
+            var diceNumber = document.getElementById("dice-number");
+            var result = Math.floor(Math.random() * 20) + 1;
+
+            var messages = [
+              "Resultado Crítico de Falha: O pior resultado possível, indicando um fracasso catastrófico ou um evento terrível.",
+              "Resultado Muito Baixo: Ainda um resultado muito baixo, indicando um fracasso significativo ou um evento negativo.",
+              "Resultado Baixo: Um resultado abaixo da média, indicando uma falha, mas não necessariamente catastrófica.",
+              "Resultado Baixo-Médio: Um resultado mediano, mas na extremidade inferior, indicando uma ação apenas um pouco acima do fracasso.",
+              "Resultado Médio-Baixo: Um resultado médio, onde a ação foi realizada com sucesso, mas sem grande destaque.",
+              "Resultado Médio: Um resultado médio, onde a ação foi realizada com sucesso, mas sem grande destaque.",
+              "Resultado Médio-Alto: Um resultado mediano, mas na extremidade superior, indicando um sucesso um pouco melhor do que o esperado.",
+              "Resultado Médio-Alto: Um resultado mediano, mas na extremidade superior, indicando um sucesso um pouco melhor do que o esperado.",
+              "Resultado Bom: Um resultado bom, indicando um sucesso competente.",
+              "Resultado Bom: Um resultado bom, indicando um sucesso competente.",
+              "Resultado Bom: Um resultado bom, indicando um sucesso competente.",
+              "Resultado Bom: Um resultado bom, indicando um sucesso competente.",
+              "Resultado Bom: Um resultado bom, indicando um sucesso competente.",
+              "Resultado Bom: Um resultado bom, indicando um sucesso competente.",
+              "Resultado Acima da Média: Um resultado acima da média, indicando uma ação realizada com destaque.",
+              "Resultado Acima da Média: Um resultado acima da média, indicando uma ação realizada com destaque.",
+              "Resultado Excelente: Um resultado excelente, indicando um sucesso notável.",
+              "Resultado Excelente: Um resultado excelente, indicando um sucesso notável.",
+              "Resultado Excelente: Um resultado excelente, indicando um sucesso notável.",
+              "Resultado Crítico de Sucesso: O melhor resultado possível, indicando um sucesso incrível ou um evento extraordinário.",
+            ];
+
+            var messageElement = document.getElementById("dice-message");
+            messageElement.style.display = "none";
+
+            var randomRotation = Math.random() * 1440;
+            diceImage.style.transform = `rotate(${randomRotation}deg)`;
+
+            setTimeout(function () {
+              diceImage.style.transition = "transform 0.5s ease";
+              diceImage.style.transform = "rotate(0deg)";
+
+              setTimeout(function () {
+                diceNumber.textContent = result;
+                messageElement.textContent = messages[result - 1];
+                messageElement.style.display = "block";
+                isRolling = false;
+                diceImage.style.transition = "transform 2s ease";
+              }, 500);
+            }, 2000);
+          }
+        });
+    </script>
+  </body>
+</html>
